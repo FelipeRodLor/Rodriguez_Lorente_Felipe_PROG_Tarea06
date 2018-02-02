@@ -5,6 +5,11 @@
  */
 package tarea05;
 
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.dominio.Alquiler;
+import mvc.modelo.dominio.Turismo;
+import mvc.modelo.dominio.Cliente;
+
 /**
  *
  * @author Felipillo
