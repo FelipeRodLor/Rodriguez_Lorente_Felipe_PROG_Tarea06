@@ -16,31 +16,39 @@ public class Cliente {
 
     private String nombre;
     private String dni;
-    private String direccion;
-    private String localidad;
-    private String codigoPostal;
     private int identificador;
-    private static int numClientes;
+    private DireccionPostal direccionPostal;
+    private static int ultimoIdenificador;
 
-    public Cliente(String nombre, String dni, String direccion, String localidad, String codigoPostal) {
+    public Cliente(String nombre, String dni, DireccionPostal direccionPostal) {
 
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.localidad = localidad;
+        setNombre(nombre);
+        setDni(dni);
+        setDireccionPostal(direccionPostal);
+        setIdentificador();
 
+    }
+
+    private void setNombre(String nombre) {
+        if (nombre.length() > 0) {
+            this.nombre = nombre;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("El nombre introducido no es correcto");
+        }
+    }
+
+    private void setDni(String dni) {
         if (compruebaDni(dni)) {
             this.dni = dni;
         } else {
             throw new ExcepcionAlquilerVehiculos("El DNI introducido no es correcto");
         }
-        if (compruebaCodigoPostal(codigoPostal)) {
-            this.codigoPostal = codigoPostal;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("El Codigo postal introducido no es correcto");
-        }
+    }
 
-        numClientes++;
-        identificador = numClientes;
+    private void setIdentificador() {
+
+        ultimoIdenificador++;
+        identificador = ultimoIdenificador;
 
     }
 
@@ -53,21 +61,14 @@ public class Cliente {
 
     }
 
-    private boolean compruebaCodigoPostal(String codigoPostal) {
-        Pattern patron = Pattern.compile("([0-9]){5}");
-        Matcher emparejador;
-        emparejador = patron.matcher(codigoPostal);
-
-        return emparejador.matches();
-
+    public void setDireccionPostal(DireccionPostal direccionPostal) {
+        this.direccionPostal = new DireccionPostal(direccionPostal);
     }
 
     private Cliente(Cliente cliente) {
         this.nombre = cliente.nombre;
-        this.direccion = cliente.direccion;
+        this.direccionPostal = cliente.direccionPostal;
         this.dni = cliente.dni;
-        this.localidad = cliente.localidad;
-        this.codigoPostal = cliente.codigoPostal;
 
     }
 
@@ -80,19 +81,9 @@ public class Cliente {
 
     }
 
-    public String getDireccion() {
-        return direccion;
-
-    }
-
-    public String getLocalidad() {
-        return localidad;
-
-    }
-
-    public String getCodigoPostal() {
-        return codigoPostal;
-
+    public DireccionPostal getDireccionPostal() {
+        DireccionPostal nuevaDireccionPostal = new DireccionPostal(direccionPostal);
+        return nuevaDireccionPostal;
     }
 
     public int getIdentificador() {
@@ -102,7 +93,7 @@ public class Cliente {
 
     public String toString() {
 
-        return (" DNI; " + dni + " NOMBRE; " + nombre + " DIRECCION; " + direccion + " LOCALIDAD; " + localidad + " CODIGOPOSTAL; " + codigoPostal + " ID; " + identificador);
+        return (" DNI; " + dni + " NOMBRE; " + nombre + direccionPostal.toString() + " ID; " + identificador);
     }
 
 }

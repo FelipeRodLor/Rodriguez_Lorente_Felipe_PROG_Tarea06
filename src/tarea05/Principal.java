@@ -9,6 +9,7 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Turismo;
 import mvc.modelo.dominio.Cliente;
+import mvc.modelo.dominio.DireccionPostal;
 import utilidades.Entrada;
 
 /**
@@ -20,9 +21,11 @@ public class Principal {
     public static void main(String[] args) {
         int opcion;
         AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
-
-        Cliente cliente1 = new Cliente("aa", "11111111A", "aa", "Almería", "04001");
-        Cliente cliente2 = new Cliente("bb", "22222222B", "bb", "Almería", "04002");
+        
+        DireccionPostal direccionPostal1 = new DireccionPostal ("aaa", "aaaa", "04009");
+        DireccionPostal direccionPostal2 = new DireccionPostal ("bbb", "bbbb", "04008");
+        Cliente cliente1 = new Cliente("aa", "11111111A", direccionPostal1);
+        Cliente cliente2 = new Cliente("bb", "22222222B", direccionPostal2);
         alquilerVehiculos.addCliente(cliente1);
         alquilerVehiculos.addCliente(cliente2);
         Turismo vehiculo1 = new Turismo("1111BBB", "Seat", "Ibiza", 1900);
@@ -51,22 +54,24 @@ public class Principal {
 
                     case 1:
                         Cliente nuevoCliente = null;
-
+                        DireccionPostal nuevaDireccionPostal = null;
+                        
                         System.out.println("\nDATOS DEL CLIENTE");
                         System.out.println("-------------------");
                         System.out.print("Nombre; ");
                         String nombre = Entrada.cadena();
                         System.out.print("Dni; ");
                         String dni = Entrada.cadena();
-                        System.out.print("Direccion; ");
-                        String direccion = Entrada.cadena();
+                        System.out.print("Calle; ");
+                        String calle = Entrada.cadena();
                         System.out.print("Localidad; ");
                         String localidad = Entrada.cadena();
                         System.out.print("Codigo Postal; ");
                         String codigoPostal = Entrada.cadena();
 
                         try {
-                            nuevoCliente = new Cliente(nombre, dni, direccion, localidad, codigoPostal);
+                            nuevaDireccionPostal = new DireccionPostal(calle, localidad, codigoPostal);
+                            nuevoCliente = new Cliente(nombre, dni, nuevaDireccionPostal);
                         } catch (ExcepcionAlquilerVehiculos e) {
                             System.out.printf("\nERROR: %s%n%n", e.getMessage());
 
