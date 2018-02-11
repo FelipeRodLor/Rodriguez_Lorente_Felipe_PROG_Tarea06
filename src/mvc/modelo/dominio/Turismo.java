@@ -7,6 +7,7 @@ package mvc.modelo.dominio;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 
 /**
  *
@@ -21,29 +22,19 @@ public class Turismo {
     private boolean disponible;
 
     public Turismo(String matricula, String marca, String modelo, int cilindrada) {
+        setMatricula(matricula);
+        setMarca(marca);
+        setModelo(modelo);
+        setCilindrada(cilindrada);
+        disponible = true;
+    }
 
+    public void setMatricula(String matricula) {
         if (compruebaMatricula(matricula)) {
             this.matricula = matricula;
         } else {
             throw new ExcepcionAlquilerVehiculos("La matricula introducida no es correcta");
         }
-        this.marca = marca;
-        this.modelo = modelo;
-        if (cilindrada > 0) {
-            this.cilindrada = cilindrada;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("La cilindrada introducida no es correcta");
-        }
-        disponible = true;
-    }
-
-    public Turismo(Turismo turismo) {
-        this.matricula = turismo.matricula;
-        this.marca = turismo.marca;
-        this.modelo = turismo.modelo;
-        this.cilindrada = turismo.cilindrada;
-        this.disponible = turismo.disponible;
-
     }
 
     private boolean compruebaMatricula(String matricula) {
@@ -54,29 +45,57 @@ public class Turismo {
 
     }
 
+    private void setMarca(String marca) {
+        if (marca != null && !marca.equals("")) {
+            this.marca = marca;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("La marca de turismo introducida no es correcta");
+        }
+    }
+
+    private void setModelo(String modelo) {
+        if (marca != null && !marca.equals("")) {
+            this.modelo = modelo;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("El modelo de turismo introducido no es correcto");
+        }
+    }
+
+    private void setCilindrada(int cilindrada) {
+        if (marca != null && !marca.equals("")&& cilindrada>0 ) {
+            this.cilindrada = cilindrada;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("La cilindrada del turismo introducida no es correcta");
+        }
+    }
+
+    public Turismo(Turismo turismo) {
+        matricula = turismo.getMatricula();
+        marca = turismo.getMarca();
+        modelo = turismo.getModelo();
+        cilindrada = turismo.getCilindrada();
+        this.disponible = turismo.disponible;
+
+    }
+
     public String getMatricula() {
         return matricula;
-
     }
 
     public String getMarca() {
         return marca;
-
     }
 
     public String getModelo() {
         return modelo;
-
     }
 
     public int getCilindrada() {
         return cilindrada;
-
     }
 
     public boolean getDisponible() {
         return disponible;
-
     }
 
     public void setDisponible(boolean disponible) {

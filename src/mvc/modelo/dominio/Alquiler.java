@@ -6,7 +6,6 @@
 package mvc.modelo.dominio;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -29,8 +28,6 @@ public class Alquiler {
         this.turismo = turismo;
         fecha = new Date();
         dias = 0;
-        
-
     }
 
     public Date getFecha() {
@@ -53,14 +50,12 @@ public class Alquiler {
         Date ahora = new Date();
         dias = difDias(ahora, fecha);
         turismo.setDisponible(true);
-
     }
 
     private int difDias(Date fechaFin, Date fechaInicio) {
         long milisegundos = fechaFin.getTime() - fechaInicio.getTime();
         long diasAlq = milisegundos / MS_DIA;
         return (int) diasAlq + 1;
-
     }
 
     public double getPrecio() {

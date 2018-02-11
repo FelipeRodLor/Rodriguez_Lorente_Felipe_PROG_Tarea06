@@ -5,6 +5,7 @@
  */
 package tarea05;
 
+import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Turismo;
@@ -21,18 +22,9 @@ public class Principal {
     public static void main(String[] args) {
         int opcion;
         AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
-        
-        DireccionPostal direccionPostal1 = new DireccionPostal ("aaa", "aaaa", "04009");
-        DireccionPostal direccionPostal2 = new DireccionPostal ("bbb", "bbbb", "04008");
-        Cliente cliente1 = new Cliente("aa", "11111111A", direccionPostal1);
-        Cliente cliente2 = new Cliente("bb", "22222222B", direccionPostal2);
-        alquilerVehiculos.addCliente(cliente1);
-        alquilerVehiculos.addCliente(cliente2);
-        Turismo vehiculo1 = new Turismo("1111BBB", "Seat", "Ibiza", 1900);
-        Turismo vehiculo2 = new Turismo("2222BBB", "Opel", "Corsa", 1600);
-        alquilerVehiculos.addTurismo(vehiculo1);
-        alquilerVehiculos.addTurismo(vehiculo2);
-        System.out.println(vehiculo1.toString());
+
+        alquilerVehiculos.añadirDatosPrueba();
+
         do {
             do {
                 System.out.println("\nPulse el numero de la opcion que quiera realizar;");
@@ -54,8 +46,7 @@ public class Principal {
 
                     case 1:
                         Cliente nuevoCliente = null;
-                        DireccionPostal nuevaDireccionPostal = null;
-                        
+
                         System.out.println("\nDATOS DEL CLIENTE");
                         System.out.println("-------------------");
                         System.out.print("Nombre; ");
@@ -70,7 +61,7 @@ public class Principal {
                         String codigoPostal = Entrada.cadena();
 
                         try {
-                            nuevaDireccionPostal = new DireccionPostal(calle, localidad, codigoPostal);
+                            DireccionPostal nuevaDireccionPostal = new DireccionPostal(calle, localidad, codigoPostal);
                             nuevoCliente = new Cliente(nombre, dni, nuevaDireccionPostal);
                         } catch (ExcepcionAlquilerVehiculos e) {
                             System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -78,7 +69,7 @@ public class Principal {
                         }
                         if (nuevoCliente != null) {
                             try {
-                                alquilerVehiculos.addCliente(nuevoCliente);
+                                alquilerVehiculos.añadirCliente(nuevoCliente);
                                 System.out.println("\nOperacion realizada");
                             } catch (ExcepcionAlquilerVehiculos e) {
                                 System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -93,7 +84,8 @@ public class Principal {
                         System.out.print("Intruduzca el dni del cliente a eliminar; ");
                         String dniBorrar = Entrada.cadena();
                         try {
-                            alquilerVehiculos.delCliente(dniBorrar);
+
+                            alquilerVehiculos.borrarCliente(dniBorrar);
                             System.out.println("\nOperacion realizada");
                         } catch (ExcepcionAlquilerVehiculos e) {
                             System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -105,7 +97,7 @@ public class Principal {
 
                         System.out.println("\nLISTADO DE CLIENTES");
                         System.out.println("---------------------");
-                        for (Cliente listaCliente : alquilerVehiculos.getClientes()) {
+                        for (Cliente listaCliente : alquilerVehiculos.obtenerClientes()) {
                             if (listaCliente != null) {
                                 System.out.println(listaCliente);
                             }
@@ -136,7 +128,7 @@ public class Principal {
 
                         if (nuevoTurismo != null) {
                             try {
-                                alquilerVehiculos.addTurismo(nuevoTurismo);
+                                alquilerVehiculos.añadirTurismo(nuevoTurismo);
                                 System.out.println("\nOperacion realizada");
                             } catch (ExcepcionAlquilerVehiculos i) {
                                 System.out.printf("\nERROR: %s%n%n", i.getMessage());
@@ -150,7 +142,7 @@ public class Principal {
                         System.out.print("Intruduzca la matricula del turismo a eliminar; ");
                         String matriculaBorrar = Entrada.cadena();
                         try {
-                            alquilerVehiculos.delTurismo(matriculaBorrar);
+                            alquilerVehiculos.borrarTurismo(matriculaBorrar);
                             System.out.println("Operacion realizada");
                         } catch (ExcepcionAlquilerVehiculos e) {
                             System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -161,7 +153,7 @@ public class Principal {
 
                         System.out.println("\nLISTADO DE TURISMOS");
                         System.out.println("---------------------");
-                        for (Turismo listaTurismos : alquilerVehiculos.getTurismos()) {
+                        for (Turismo listaTurismos : alquilerVehiculos.obtenerTurismo()) {
                             if (listaTurismos != null) {
                                 System.out.println(listaTurismos);
                             }
@@ -169,69 +161,55 @@ public class Principal {
                         break;
 
                     case 7:
+
                         Alquiler nuevoAlquiler = null;
 
                         System.out.println("\nAPERTURA DE ALQUILER");
                         System.out.println("--------------------");
                         System.out.print("\nIntroduzca el dni del cliente; ");
                         String dniAlquiler = Entrada.cadena();
-                        Cliente clienteAlquiler = alquilerVehiculos.getCliente(dniAlquiler);
                         System.out.print("Introduzca la matricula del vehiculo; ");
                         String matriculaAlquiler = Entrada.cadena();
-                        Turismo turismoAlquiler = alquilerVehiculos.getTurismo(matriculaAlquiler);
-                        if (clienteAlquiler == null) {
-                            System.out.println("\nERROR: El cliente introducido no existe en el sistema");
-                        } else {
-                            if (turismoAlquiler == null) {
-                                System.out.println("\nERROR: El vehiculo introducido no existe en el sistema");
-                            } else {
 
-                                try {
-                                    alquilerVehiculos.openAlquiler(clienteAlquiler, turismoAlquiler);
-                                    System.out.println("\nOperacion realizada");
-                                } catch (ExcepcionAlquilerVehiculos i) {
-                                    System.out.printf("\nERROR: %s%n%n", i.getMessage());
-                                }
+                        try {
+                            Cliente clienteAlquiler = alquilerVehiculos.buscarCliente(dniAlquiler);
+                            Turismo turismoAlquiler = alquilerVehiculos.buscarTurismo(matriculaAlquiler);
+                            alquilerVehiculos.abrirAlquiler(clienteAlquiler, turismoAlquiler);
 
-                            }
-
+                            System.out.println("\nOperacion realizada");
+                        } catch (ExcepcionAlquilerVehiculos e) {
+                            System.out.printf("\nERROR: %s%n%n", e.getMessage());
                         }
 
                         break;
 
                     case 8:
+                        Alquileres alquileres = null;
 
                         System.out.println("\nCIERRE DE ALQUILER");
                         System.out.println("--------------------");
                         System.out.print("\nIntroduzca el dni del cliente; ");
                         String dniCierre = Entrada.cadena();
-                        Cliente clienteCierre = alquilerVehiculos.getCliente(dniCierre);
                         System.out.print("Introduzca la matricula del vehiculo; ");
                         String matriculaCierre = Entrada.cadena();
-                        Turismo turismoCierre = alquilerVehiculos.getTurismo(matriculaCierre);
-                        if (clienteCierre == null) {
-                            System.out.println("\nERROR: El cliente introducido no existe en el sistema");
-                        } else {
-                            if (turismoCierre == null) {
-                                System.out.println("\nERROR:El vehiculo introducido no existe en el sistema");
-                            } else {
-                                try {
-                                    alquilerVehiculos.closeAlquiler(clienteCierre, turismoCierre);
-                                    System.out.println("Operacion realizada");
-                                } catch (ExcepcionAlquilerVehiculos e) {
-                                    System.out.printf("\nERROR:  %s%n%n", e.getMessage());
 
-                                }
+                        try {
+                            Cliente clienteAlquiler = alquilerVehiculos.buscarCliente(dniCierre);
+                            Turismo turismoAlquiler = alquilerVehiculos.buscarTurismo(matriculaCierre);
+                            alquilerVehiculos.closeAlquiler(clienteAlquiler, turismoAlquiler);
+                            System.out.println("Operacion realizada");
+                        } catch (ExcepcionAlquilerVehiculos e) {
+                            System.out.printf("\nERROR:  %s%n%n", e.getMessage());
 
-                            }
                         }
+
                         break;
 
                     case 9:
 
                         System.out.println("\nLISTADO DE ALQUILERES");
                         System.out.println("---------------------");
-                        for (Alquiler listaAlquileres : alquilerVehiculos.getAlquileres()) {
+                        for (Alquiler listaAlquileres : alquilerVehiculos.obtenerAlquileres()) {
                             if (listaAlquileres != null) {
                                 System.out.println(listaAlquileres);
                             }
@@ -242,11 +220,8 @@ public class Principal {
 
             } while (opcion > 10 || opcion < 0);
 
-            
-        } while (opcion
-                != 10);
-        System.out.println(
-                "Has abandonado satisfactoriamente");
+        } while (opcion != 10);
+        System.out.println("Has abandonado satisfactoriamente");
     }
 
 }

@@ -17,20 +17,27 @@ public class Cliente {
     private String nombre;
     private String dni;
     private int identificador;
-    private DireccionPostal direccionPostal;
+    public DireccionPostal direccionPostal;
     private static int ultimoIdenificador;
 
     public Cliente(String nombre, String dni, DireccionPostal direccionPostal) {
 
         setNombre(nombre);
         setDni(dni);
-        setDireccionPostal(direccionPostal);
         setIdentificador();
 
     }
 
+    public Cliente(Cliente cliente) {
+        nombre = cliente.getNombre();
+        dni = cliente.getDni();
+        identificador = cliente.getIdentificador();
+        direccionPostal = cliente.getDireccionPostal();
+
+    }
+
     private void setNombre(String nombre) {
-        if (nombre.length() > 0) {
+        if (nombre != null && !nombre.equals("")) {
             this.nombre = nombre;
         } else {
             throw new ExcepcionAlquilerVehiculos("El nombre introducido no es correcto");
@@ -65,25 +72,16 @@ public class Cliente {
         this.direccionPostal = new DireccionPostal(direccionPostal);
     }
 
-    private Cliente(Cliente cliente) {
-        this.nombre = cliente.nombre;
-        this.direccionPostal = cliente.direccionPostal;
-        this.dni = cliente.dni;
-
-    }
-
     public String getNombre() {
         return nombre;
     }
 
     public String getDni() {
         return dni;
-
     }
 
     public DireccionPostal getDireccionPostal() {
-        DireccionPostal nuevaDireccionPostal = new DireccionPostal(direccionPostal);
-        return nuevaDireccionPostal;
+        return new DireccionPostal(direccionPostal);
     }
 
     public int getIdentificador() {
