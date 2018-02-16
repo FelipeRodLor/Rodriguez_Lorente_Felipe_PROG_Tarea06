@@ -25,6 +25,7 @@ public class Cliente {
         setNombre(nombre);
         setDni(dni);
         setIdentificador();
+        this.direccionPostal = direccionPostal;
 
     }
 

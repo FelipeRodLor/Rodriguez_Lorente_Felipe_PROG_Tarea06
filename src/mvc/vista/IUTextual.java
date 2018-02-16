@@ -5,13 +5,12 @@
  */
 package mvc.vista;
 
-import mvc.modelo.dao.Alquileres;
-import mvc.modelo.dominio.Alquiler;
-import mvc.modelo.dominio.Cliente;
-import mvc.modelo.dominio.DireccionPostal;
-import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.Turismo;
 import mvc.modelo.AlquilerVehiculos;
+import mvc.modelo.dao.Alquileres;
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.dominio.Alquiler;
+import mvc.modelo.dominio.Turismo;
+import mvc.modelo.dominio.Cliente;
 import utilidades.Entrada;
 
 /**
@@ -20,59 +19,73 @@ import utilidades.Entrada;
  */
 public class IUTextual {
 
+    AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
+
     public static void main(String[] args) {
-        int opcion;
         AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
-
+        IUTextual iuTextual = new IUTextual();
+        int opcion;
         alquilerVehiculos.añadirDatosPrueba();
-
         do {
             do {
-                opcion = comenzar();
+
+                System.out.println("----------------");
+                System.out.println("1-AÑADIR CLIENTE");
+                System.out.println("2-BORRAR CLIENTE");
+                System.out.println("3-LISTAR CLIENTES");
+                System.out.println("4-AÑADIR TURUSMO");
+                System.out.println("5-BORRAR TURISMO");
+                System.out.println("6-LISTAR TURISMOS");
+                System.out.println("7-ABRIR ALQUILER");
+                System.out.println("8-CERRAR ALQUILER");
+                System.out.println("9-LISTAR ALQUILER");
+                System.out.println("10-SALIR");
+
+                opcion = Entrada.entero();
 
                 switch (opcion) {
 
                     case 1:
-                        anadirCliente(alquilerVehiculos);
+                        anadirCliente();
                         break;
 
                     case 2:
 
-                        borrarCliente(alquilerVehiculos);
+                        borrarCliente();
                         break;
 
                     case 3:
 
-                        listarClientes(alquilerVehiculos);
+                        listarClientes();
                         break;
 
                     case 4:
-                        anadirTurismo(alquilerVehiculos);
+                        anadirTurismo();
                         break;
 
                     case 5:
-                        borrarTurismo(alquilerVehiculos);
+                        borrarTurismo();
                         break;
 
                     case 6:
 
-                        listarTurismos(alquilerVehiculos);
+                        listarTurismos();
                         break;
 
                     case 7:
 
-                        abrirAlquiler(alquilerVehiculos);
+                        abrirAlquiler();
 
                         break;
 
                     case 8:
-                        cerrarAlquiler(alquilerVehiculos);
+                        cerrarAlquiler();
 
                         break;
 
                     case 9:
 
-                        listarAlquileres(alquilerVehiculos);
+                        listarAlquileres();
                         break;
 
                 }
@@ -83,27 +96,8 @@ public class IUTextual {
         System.out.println("Has abandonado satisfactoriamente");
     }
 
-    public static int comenzar() {
-        int opcion;
-        System.out.println("\nPulse el numero de la opcion que quiera realizar;");
-        System.out.println("----------------");
-        System.out.println("1-AÑADIR CLIENTE");
-        System.out.println("2-BORRAR CLIENTE");
-        System.out.println("3-LISTAR CLIENTES");
-        System.out.println("4-AÑADIR TURUSMO");
-        System.out.println("5-BORRAR TURISMO");
-        System.out.println("6-LISTAR TURISMOS");
-        System.out.println("7-ABRIR ALQUILER");
-        System.out.println("8-CERRAR ALQUILER");
-        System.out.println("9-LISTAR ALQUILER");
-        System.out.println("10-SALIR");
-        opcion = Entrada.entero();
-        return opcion;
-    }
-
-    public static void listarAlquileres(AlquilerVehiculos alquilerVehiculos) {
-        System.out.println("\nLISTADO DE ALQUILERES");
-        System.out.println("---------------------");
+    public void listarAlquileres() {
+        Consola.mostrarCabecera("LISTADO DE ALQUILERES");
         for (Alquiler listaAlquileres : alquilerVehiculos.obtenerAlquileres()) {
             if (listaAlquileres != null) {
                 System.out.println(listaAlquileres);
@@ -111,16 +105,13 @@ public class IUTextual {
         }
     }
 
-    public static void cerrarAlquiler(AlquilerVehiculos alquilerVehiculos) {
+    public void cerrarAlquiler() {
         Alquileres alquileres = null;
-        
-        System.out.println("\nCIERRE DE ALQUILER");
-        System.out.println("--------------------");
-        System.out.print("\nIntroduzca el dni del cliente; ");
-        String dniCierre = Entrada.cadena();
-        System.out.print("Introduzca la matricula del vehiculo; ");
-        String matriculaCierre = Entrada.cadena();
-        
+
+        Consola.mostrarCabecera("CIERRE DE ALQUILER");
+        String dniCierre = Consola.leerDni();
+        String matriculaCierre = Consola.leerMatricula();
+
         try {
             Cliente clienteAlquiler = alquilerVehiculos.buscarCliente(dniCierre);
             Turismo turismoAlquiler = alquilerVehiculos.buscarTurismo(matriculaCierre);
@@ -128,34 +119,30 @@ public class IUTextual {
             System.out.println("Operacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR:  %s%n%n", e.getMessage());
-            
+
         }
     }
 
-    public static void abrirAlquiler(AlquilerVehiculos alquilerVehiculos) {
+    public void abrirAlquiler() {
         Alquiler nuevoAlquiler = null;
-        
-        System.out.println("\nAPERTURA DE ALQUILER");
-        System.out.println("--------------------");
-        System.out.print("\nIntroduzca el dni del cliente; ");
-        String dniAlquiler = Entrada.cadena();
-        System.out.print("Introduzca la matricula del vehiculo; ");
-        String matriculaAlquiler = Entrada.cadena();
-        
+
+        Consola.mostrarCabecera("APERTURA DE ALQUILER");
+        String dniAlquiler = Consola.leerDni();
+        String matriculaAlquiler = Consola.leerMatricula();
+
         try {
             Cliente clienteAlquiler = alquilerVehiculos.buscarCliente(dniAlquiler);
             Turismo turismoAlquiler = alquilerVehiculos.buscarTurismo(matriculaAlquiler);
             alquilerVehiculos.abrirAlquiler(clienteAlquiler, turismoAlquiler);
-            
+
             System.out.println("\nOperacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
 
-    public static void listarTurismos(AlquilerVehiculos alquilerVehiculos) {
-        System.out.println("\nLISTADO DE TURISMOS");
-        System.out.println("---------------------");
+    public void listarTurismos() {
+        Consola.mostrarCabecera("LISTADO DE TURISMOS");
         for (Turismo listaTurismos : alquilerVehiculos.obtenerTurismo()) {
             if (listaTurismos != null) {
                 System.out.println(listaTurismos);
@@ -163,11 +150,9 @@ public class IUTextual {
         }
     }
 
-    public static void borrarTurismo(AlquilerVehiculos alquilerVehiculos) {
-        System.out.println("\nBORRAR TURISMO");
-        System.out.println("----------------");
-        System.out.print("Intruduzca la matricula del turismo a eliminar; ");
-        String matriculaBorrar = Entrada.cadena();
+    public void borrarTurismo() {
+        Consola.mostrarCabecera("BORRAR TURISMO");
+        String matriculaBorrar = Consola.leerMatricula();
         try {
             alquilerVehiculos.borrarTurismo(matriculaBorrar);
             System.out.println("Operacion realizada");
@@ -176,31 +161,11 @@ public class IUTextual {
         }
     }
 
-    public static void anadirTurismo(AlquilerVehiculos alquilerVehiculos) {
-        Turismo nuevoTurismo = null;
-        
-        System.out.println("\nDATOS DEL TURISMO");
-        System.out.println("-------------------");
-        System.out.print("Matricula; ");
-        String matricula = Entrada.cadena();
-        System.out.print("Marca; ");
-        String marca = Entrada.cadena();
-        System.out.print("Modelo; ");
-        String modelo = Entrada.cadena();
-        System.out.print("Cilindrada; ");
-        int cilindrada = Entrada.entero();
-        
-        try {
-            nuevoTurismo = new Turismo(matricula, marca, modelo, cilindrada);
-            
-        } catch (ExcepcionAlquilerVehiculos e) {
-            System.out.printf("\nERROR: %s%n%n", e.getMessage());
-            
-        }
-        
-        if (nuevoTurismo != null) {
+    public void anadirTurismo() {
+        Consola.mostrarCabecera("ALTA TURISMO");
+        if (Consola.leerTurismo() != null) {
             try {
-                alquilerVehiculos.añadirTurismo(nuevoTurismo);
+                alquilerVehiculos.añadirTurismo(Consola.leerTurismo());
                 System.out.println("\nOperacion realizada");
             } catch (ExcepcionAlquilerVehiculos i) {
                 System.out.printf("\nERROR: %s%n%n", i.getMessage());
@@ -208,9 +173,8 @@ public class IUTextual {
         }
     }
 
-    public static void listarClientes(AlquilerVehiculos alquilerVehiculos) {
-        System.out.println("\nLISTADO DE CLIENTES");
-        System.out.println("---------------------");
+    public void listarClientes() {
+        Consola.mostrarCabecera("LISTADO DE CLIENTES");
         for (Cliente listaCliente : alquilerVehiculos.obtenerClientes()) {
             if (listaCliente != null) {
                 System.out.println(listaCliente);
@@ -218,47 +182,25 @@ public class IUTextual {
         }
     }
 
-    public static void borrarCliente(AlquilerVehiculos alquilerVehiculos) {
-        System.out.println("\nBORRAR CLIENTE");
-        System.out.println("----------------");
-        System.out.print("Intruduzca el dni del cliente a eliminar; ");
-        String dniBorrar = Entrada.cadena();
+    public void borrarCliente() {
+        Consola.mostrarCabecera("BORRAR CLIENTE");
+        String dniBorrar = Consola.leerDni();
         try {
-            
+
             alquilerVehiculos.borrarCliente(dniBorrar);
             System.out.println("\nOperacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
-            
+
         }
     }
 
-    public static void anadirCliente(AlquilerVehiculos alquilerVehiculos) {
-        Cliente nuevoCliente = null;
-        
-        System.out.println("\nDATOS DEL CLIENTE");
-        System.out.println("-------------------");
-        System.out.print("Nombre; ");
-        String nombre = Entrada.cadena();
-        System.out.print("Dni; ");
-        String dni = Entrada.cadena();
-        System.out.print("Calle; ");
-        String calle = Entrada.cadena();
-        System.out.print("Localidad; ");
-        String localidad = Entrada.cadena();
-        System.out.print("Codigo Postal; ");
-        String codigoPostal = Entrada.cadena();
-        
-        try {
-            DireccionPostal nuevaDireccionPostal = new DireccionPostal(calle, localidad, codigoPostal);
-            nuevoCliente = new Cliente(nombre, dni, nuevaDireccionPostal);
-        } catch (ExcepcionAlquilerVehiculos e) {
-            System.out.printf("\nERROR: %s%n%n", e.getMessage());
-            
-        }
-        if (nuevoCliente != null) {
+    public void anadirCliente() {
+
+        Consola.mostrarCabecera("ALTA CLIENTE");
+        if (Consola.leerCliente() != null) {
             try {
-                alquilerVehiculos.añadirCliente(nuevoCliente);
+                alquilerVehiculos.añadirCliente(Consola.leerCliente());
                 System.out.println("\nOperacion realizada");
             } catch (ExcepcionAlquilerVehiculos e) {
                 System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -267,5 +209,3 @@ public class IUTextual {
     }
 
 }
-
-

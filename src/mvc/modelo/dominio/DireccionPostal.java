@@ -27,9 +27,9 @@ public class DireccionPostal {
     }
 
     public DireccionPostal(DireccionPostal direccionPostal) {
-        this.calle = direccionPostal.calle;
-        this.codigoPostal = direccionPostal.codigoPostal;
-        this.localidad = direccionPostal.localidad;
+        this.calle = direccionPostal.getCalle();
+        this.codigoPostal = direccionPostal.getCodigoPostal();
+        this.localidad = direccionPostal.getLocalidad();
     }
 
     private void setCalle(String calle) {
