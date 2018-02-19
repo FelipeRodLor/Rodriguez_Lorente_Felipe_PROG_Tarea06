@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mvc.vista;
+package utilidades;
 
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Turismo;
-import utilidades.Entrada;
+import mvc.vista.Opcion;
+
 
 /**
  *
@@ -19,17 +20,18 @@ public class Consola {
 
     public static void mostrarCabecera(String mensaje) {
         System.out.printf("%n%s%n", mensaje);
-        for (int i = 0; i > mensaje.length(); i++) {
-            System.out.print("- ");
+        for (int i = 0; i < mensaje.length(); i++) {
+            System.out.print("-");
         }
+        System.out.println("");
     }
 
-    public static int elegirOpcion(int opcion) {
+    public static int elegirOpcion() {
         int ordinalOpcion;
         do {
             System.out.print("\nElige una opción: ");
             ordinalOpcion = Entrada.entero();
-        } while (ordinalOpcion > 0 && ordinalOpcion > 10);
+        } while (!(ordinalOpcion > 0 && ordinalOpcion < 10));
         return ordinalOpcion;
 
     }
@@ -95,5 +97,12 @@ public class Consola {
         }
         return nuevoTurismo;
 
+    }
+    
+    public static void mostrarMenu(){
+        mostrarCabecera("ALQUILER VEHÍCULOS");
+        for (Opcion opcion: Opcion.values()) {
+                System.out.println(opcion);
+        }
     }
 }

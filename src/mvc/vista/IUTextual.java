@@ -5,6 +5,7 @@
  */
 package mvc.vista;
 
+import utilidades.Consola;
 import mvc.modelo.AlquilerVehiculos;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
@@ -18,82 +19,13 @@ import utilidades.Entrada;
  * @author Felipillo
  */
 public class IUTextual {
+     AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
+    public IUTextual() {
+		Opcion.setVista(this);
+	}
 
-    AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
-
-    public static void main(String[] args) {
-        AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
-        IUTextual iuTextual = new IUTextual();
-        int opcion;
-        alquilerVehiculos.añadirDatosPrueba();
-        do {
-            do {
-
-                System.out.println("----------------");
-                System.out.println("1-AÑADIR CLIENTE");
-                System.out.println("2-BORRAR CLIENTE");
-                System.out.println("3-LISTAR CLIENTES");
-                System.out.println("4-AÑADIR TURUSMO");
-                System.out.println("5-BORRAR TURISMO");
-                System.out.println("6-LISTAR TURISMOS");
-                System.out.println("7-ABRIR ALQUILER");
-                System.out.println("8-CERRAR ALQUILER");
-                System.out.println("9-LISTAR ALQUILER");
-                System.out.println("10-SALIR");
-
-                opcion = Entrada.entero();
-
-                switch (opcion) {
-
-                    case 1:
-                        anadirCliente();
-                        break;
-
-                    case 2:
-
-                        borrarCliente();
-                        break;
-
-                    case 3:
-
-                        listarClientes();
-                        break;
-
-                    case 4:
-                        anadirTurismo();
-                        break;
-
-                    case 5:
-                        borrarTurismo();
-                        break;
-
-                    case 6:
-
-                        listarTurismos();
-                        break;
-
-                    case 7:
-
-                        abrirAlquiler();
-
-                        break;
-
-                    case 8:
-                        cerrarAlquiler();
-
-                        break;
-
-                    case 9:
-
-                        listarAlquileres();
-                        break;
-
-                }
-
-            } while (opcion > 10 || opcion < 0);
-
-        } while (opcion != 10);
-        System.out.println("Has abandonado satisfactoriamente");
+    public void salir() {
+        System.out.println("HAS ABANDONADO SATISFACTORIAMENTE");
     }
 
     public void listarAlquileres() {
@@ -206,6 +138,19 @@ public class IUTextual {
                 System.out.printf("\nERROR: %s%n%n", e.getMessage());
             }
         }
+    }
+    
+    public void comenzar(){
+       
+        alquilerVehiculos.añadirDatosPrueba();
+        
+        int ordinalOpcion;
+		do {
+			Consola.mostrarMenu();
+			ordinalOpcion = Consola.elegirOpcion();
+			Opcion opcion = Opcion.getOpcionSegunOridnal(ordinalOpcion);
+			opcion.ejecutar();
+		} while (ordinalOpcion != Opcion.SALIR.ordinal());
     }
 
 }
