@@ -31,7 +31,7 @@ public class Consola {
         do {
             System.out.print("\nElige una opción: ");
             ordinalOpcion = Entrada.entero();
-        } while (!(ordinalOpcion > 0 && ordinalOpcion < 10));
+        } while (!Opcion.esOrdinalValido(ordinalOpcion));
         return ordinalOpcion;
 
     }

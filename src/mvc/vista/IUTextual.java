@@ -5,24 +5,40 @@
  */
 package mvc.vista;
 
+import mvc.controlador.ControladorAlquilerVehiculos;
 import utilidades.Consola;
-import mvc.modelo.AlquilerVehiculos;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Turismo;
 import mvc.modelo.dominio.Cliente;
-import utilidades.Entrada;
 
 /**
  *
  * @author Felipillo
  */
 public class IUTextual {
-     AlquilerVehiculos alquilerVehiculos = new AlquilerVehiculos();
+
+    ControladorAlquilerVehiculos controlador;
+
     public IUTextual() {
-		Opcion.setVista(this);
-	}
+        Opcion.setVista(this);
+    }
+
+    public void setControlador(ControladorAlquilerVehiculos controlador) {
+        this.controlador = controlador;
+    }
+
+    public void comenzar() {
+        
+        int ordinalOpcion;
+        do {
+            Consola.mostrarMenu();
+            ordinalOpcion = Consola.elegirOpcion();
+            Opcion opcion = Opcion.getOpcionSegunOridnal(ordinalOpcion);
+            opcion.ejecutar();
+        } while (ordinalOpcion != Opcion.SALIR.ordinal());
+    }
 
     public void salir() {
         System.out.println("HAS ABANDONADO SATISFACTORIAMENTE");
@@ -30,7 +46,7 @@ public class IUTextual {
 
     public void listarAlquileres() {
         Consola.mostrarCabecera("LISTADO DE ALQUILERES");
-        for (Alquiler listaAlquileres : alquilerVehiculos.obtenerAlquileres()) {
+        for (Alquiler listaAlquileres : controlador.obtenerAlquileres()) {
             if (listaAlquileres != null) {
                 System.out.println(listaAlquileres);
             }
@@ -45,10 +61,10 @@ public class IUTextual {
         String matriculaCierre = Consola.leerMatricula();
 
         try {
-            Cliente clienteAlquiler = alquilerVehiculos.buscarCliente(dniCierre);
-            Turismo turismoAlquiler = alquilerVehiculos.buscarTurismo(matriculaCierre);
-            alquilerVehiculos.closeAlquiler(clienteAlquiler, turismoAlquiler);
-            System.out.println("Operacion realizada");
+            Cliente clienteAlquiler = controlador.buscarCliente(dniCierre);
+            Turismo turismoAlquiler = controlador.buscarTurismo(matriculaCierre);
+            controlador.cerrarAlquiler(clienteAlquiler, turismoAlquiler);
+            System.out.println("\nOperacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR:  %s%n%n", e.getMessage());
 
@@ -63,10 +79,9 @@ public class IUTextual {
         String matriculaAlquiler = Consola.leerMatricula();
 
         try {
-            Cliente clienteAlquiler = alquilerVehiculos.buscarCliente(dniAlquiler);
-            Turismo turismoAlquiler = alquilerVehiculos.buscarTurismo(matriculaAlquiler);
-            alquilerVehiculos.abrirAlquiler(clienteAlquiler, turismoAlquiler);
-
+            Cliente clienteAlquiler = controlador.buscarCliente(dniAlquiler);
+            Turismo turismoAlquiler = controlador.buscarTurismo(matriculaAlquiler);
+            controlador.abrirAlquiler(clienteAlquiler, turismoAlquiler);
             System.out.println("\nOperacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -75,7 +90,7 @@ public class IUTextual {
 
     public void listarTurismos() {
         Consola.mostrarCabecera("LISTADO DE TURISMOS");
-        for (Turismo listaTurismos : alquilerVehiculos.obtenerTurismo()) {
+        for (Turismo listaTurismos : controlador.obtenerTurismos()) {
             if (listaTurismos != null) {
                 System.out.println(listaTurismos);
             }
@@ -86,8 +101,8 @@ public class IUTextual {
         Consola.mostrarCabecera("BORRAR TURISMO");
         String matriculaBorrar = Consola.leerMatricula();
         try {
-            alquilerVehiculos.borrarTurismo(matriculaBorrar);
-            System.out.println("Operacion realizada");
+            controlador.borrarTurismo(matriculaBorrar);
+            System.out.println("\nOperacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
@@ -97,7 +112,7 @@ public class IUTextual {
         Consola.mostrarCabecera("ALTA TURISMO");
         if (Consola.leerTurismo() != null) {
             try {
-                alquilerVehiculos.añadirTurismo(Consola.leerTurismo());
+                controlador.anadirTurismo(Consola.leerTurismo());
                 System.out.println("\nOperacion realizada");
             } catch (ExcepcionAlquilerVehiculos i) {
                 System.out.printf("\nERROR: %s%n%n", i.getMessage());
@@ -107,7 +122,7 @@ public class IUTextual {
 
     public void listarClientes() {
         Consola.mostrarCabecera("LISTADO DE CLIENTES");
-        for (Cliente listaCliente : alquilerVehiculos.obtenerClientes()) {
+        for (Cliente listaCliente : controlador.obtenerClientes()) {
             if (listaCliente != null) {
                 System.out.println(listaCliente);
             }
@@ -119,7 +134,7 @@ public class IUTextual {
         String dniBorrar = Consola.leerDni();
         try {
 
-            alquilerVehiculos.borrarCliente(dniBorrar);
+            controlador.borrarCliente(dniBorrar);
             System.out.println("\nOperacion realizada");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
@@ -128,29 +143,18 @@ public class IUTextual {
     }
 
     public void anadirCliente() {
-
+         
         Consola.mostrarCabecera("ALTA CLIENTE");
-        if (Consola.leerCliente() != null) {
+        Cliente cliente = Consola.leerCliente();
+        
+        if (cliente != null) {
             try {
-                alquilerVehiculos.añadirCliente(Consola.leerCliente());
+                controlador.anadirCliente(cliente);
                 System.out.println("\nOperacion realizada");
             } catch (ExcepcionAlquilerVehiculos e) {
                 System.out.printf("\nERROR: %s%n%n", e.getMessage());
             }
         }
-    }
-    
-    public void comenzar(){
-       
-        alquilerVehiculos.añadirDatosPrueba();
-        
-        int ordinalOpcion;
-		do {
-			Consola.mostrarMenu();
-			ordinalOpcion = Consola.elegirOpcion();
-			Opcion opcion = Opcion.getOpcionSegunOridnal(ordinalOpcion);
-			opcion.ejecutar();
-		} while (ordinalOpcion != Opcion.SALIR.ordinal());
     }
 
 }

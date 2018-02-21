@@ -5,13 +5,19 @@
  */
 package mvc.vista;
 
+import mvc.controlador.ControladorAlquilerVehiculos;
+import mvc.modelo.AlquilerVehiculos;
+
 /**
  *
  * @author Felipon
  */
 public class Principal {
+
     public static void main(String[] args) {
         IUTextual vista = new IUTextual();
-        vista.comenzar();
+        AlquilerVehiculos modelo = new AlquilerVehiculos();
+        ControladorAlquilerVehiculos controlador = new ControladorAlquilerVehiculos(modelo, vista);
+        controlador.comenzar();
     }
 }

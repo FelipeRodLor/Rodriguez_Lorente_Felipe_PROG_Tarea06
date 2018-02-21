@@ -58,7 +58,7 @@ public class Alquileres {
         boolean existe = false;
 
         while (posicion < alquileres.length && !existe) {
-            if (alquileres[posicion] != null && alquileres[posicion].getCliente().getDni().equals(cliente.getDni()) && alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula()) && alquileres[posicion].getDias() != 0) {
+            if (alquileres[posicion] != null && alquileres[posicion].getCliente().getDni().equals(cliente.getDni()) && alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula()) && alquileres[posicion].getDias() == 0) {
                 existe = true;
             } else {
                 posicion++;

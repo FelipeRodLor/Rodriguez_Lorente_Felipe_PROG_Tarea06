@@ -34,7 +34,7 @@ public class AlquilerVehiculos {
         return alquileres.getAlquiler();
     }
 
-    public Turismo[] obtenerTurismo() {
+    public Turismo[] obtenerTurismos() {
         return turismos.getTurismo();
     }
 
@@ -71,7 +71,7 @@ public class AlquilerVehiculos {
         alquileres.abrir(cliente, turismo);
     }
 
-    public void closeAlquiler(Cliente cliente, Turismo turismo) {
+    public void cerrarAlquiler(Cliente cliente, Turismo turismo) {
         alquileres.cerrar(cliente, turismo);
     }
 
