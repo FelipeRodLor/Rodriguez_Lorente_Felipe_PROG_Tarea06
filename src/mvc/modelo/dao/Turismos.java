@@ -6,42 +6,48 @@
 package mvc.modelo.dao;
 
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.Turismo;
+import mvc.dominio.vehiculo.Vehiculo;
 
 /**
  *
  * @author Felipillo
+ *
  */
 public class Turismos {
 
     private final int MAX_TURISMOS = 3;
-    private Turismo[] turismos;
+    private Vehiculo[] turismos;
 
     public Turismos() {
-        turismos = new Turismo[MAX_TURISMOS];
+        turismos = new Vehiculo[MAX_TURISMOS];
     }
 
-    public Turismo[] getTurismo() {
+    public Vehiculo[] getVehiculo() {
+
         return turismos.clone();
     }
 
-    public void añadir(Turismo turismo) {
-        int indice = buscarPrimerIndiceLibreComprobandoExistencia(turismo);
+    public void añadir(Vehiculo vehiculo) {
+        int indice = buscarPrimerIndiceLibreComprobandoExistencia(vehiculo);
+
         if (indiceNoSuperaTamaño(indice)) {
-            turismos[indice] = new Turismo(turismo);
+            turismos[indice] = new Vehiculo(vehiculo);
+
         } else {
-            throw new ExcepcionAlquilerVehiculos("El array de tursimos está lleno.");
+            throw new ExcepcionAlquilerVehiculos("El array de vehiculos está lleno.");
         }
     }
 
-    private int buscarPrimerIndiceLibreComprobandoExistencia(Turismo turismo) {
+    private int buscarPrimerIndiceLibreComprobandoExistencia(Vehiculo vehiculo) {
         int indice = 0;
         boolean clienteEncontrado = false;
+
         while (indiceNoSuperaTamaño(indice) && !clienteEncontrado) {
             if (turismos[indice] == null) {
                 clienteEncontrado = true;
-            } else if (turismos[indice].getMatricula().equals(turismo.getMatricula())) {
-                throw new ExcepcionAlquilerVehiculos("Ya existe un turismo con esa matricula");
+            } else if (turismos[indice].getMatricula().equals(vehiculo.getMatricula())) {
+                throw new ExcepcionAlquilerVehiculos("Ya existe un vehiculo con esa matricula");
+
             } else {
                 indice++;
             }
@@ -54,27 +60,27 @@ public class Turismos {
     }
 
     public void borrar(String matricula) {
-
-        int indice = buscarIndiceTurismo(matricula);
+        int indice = buscarIndiceVehiculo(matricula);
         desplazarUnaPosicionHaciaIzquierda(indice);
-
     }
 
-    private int buscarIndiceTurismo(String matricula) {
-
+    private int buscarIndiceVehiculo(String matricula) {
         int indice = 0;
         boolean existe = false;
+       
         while (indiceNoSuperaTamaño(indice) && !existe) {
             if (turismos[indice] != null && turismos[indice].getMatricula().equals(matricula)) {
                 existe = true;
+
             } else {
                 indice++;
             }
         }
         if (existe) {
             return indice;
+
         } else {
-            throw new ExcepcionAlquilerVehiculos("El tursimo introducido no existe");
+            throw new ExcepcionAlquilerVehiculos("El vehiculo introducido no existe");
         }
     }
 
@@ -84,15 +90,17 @@ public class Turismos {
             turismos[i] = turismos[i + 1];
         }
         turismos[turismos.length - 1] = null;
-
     }
 
-    public Turismo buscar(String matricula) {
+    public Vehiculo buscar(String matricula) {
+
         /*
-        Turismo copiaTurismo = new Turismo(turismos[buscarIndiceTurismo(matricula)]);
-        return copiaTurismo;
-         */
-        return turismos[buscarIndiceTurismo(matricula)];
-    }
 
+        Turismo copiaTurismo = new Turismo(turismos[buscarIndiceTurismo(matricula)]);
+
+        return copiaTurismo;
+
+         */
+        return turismos[buscarIndiceVehiculo(matricula)];
+    }
 }

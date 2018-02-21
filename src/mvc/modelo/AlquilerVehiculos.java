@@ -9,7 +9,7 @@ import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dao.Clientes;
 import mvc.modelo.dao.Turismos;
 import mvc.modelo.dominio.Alquiler;
-import mvc.modelo.dominio.Turismo;
+import mvc.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 
@@ -24,7 +24,6 @@ public class AlquilerVehiculos {
     private Turismos turismos;
 
     public AlquilerVehiculos() {
-
         clientes = new Clientes();
         alquileres = new Alquileres();
         turismos = new Turismos();
@@ -34,8 +33,8 @@ public class AlquilerVehiculos {
         return alquileres.getAlquiler();
     }
 
-    public Turismo[] obtenerTurismos() {
-        return turismos.getTurismo();
+    public Vehiculo[] obtenerVehiculos() {
+        return turismos.getVehiculo();
     }
 
     public Cliente[] obtenerClientes() {
@@ -54,25 +53,24 @@ public class AlquilerVehiculos {
         clientes.borrar(dni);
     }
 
-    public void añadirTurismo(Turismo turismo) {
-        turismos.añadir(turismo);
-
+    public void añadirVehiculo(Vehiculo vehiculo) {
+        turismos.añadir(vehiculo);
     }
 
-    public void borrarTurismo(String matricula) {
+    public void borrarVehiculo(String matricula) {
         turismos.borrar(matricula);
     }
 
-    public Turismo buscarTurismo(String matricula) {
+    public Vehiculo buscarVehiculo(String matricula) {
         return turismos.buscar(matricula);
     }
 
-    public void abrirAlquiler(Cliente cliente, Turismo turismo) {
-        alquileres.abrir(cliente, turismo);
+    public void abrirAlquiler(Cliente cliente, Vehiculo vehiculo) {
+        alquileres.abrir(cliente, vehiculo);
     }
 
-    public void cerrarAlquiler(Cliente cliente, Turismo turismo) {
-        alquileres.cerrar(cliente, turismo);
+    public void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo) {
+        alquileres.cerrar(cliente, vehiculo);
     }
 
     public void añadirDatosPrueba() {
@@ -83,12 +81,11 @@ public class AlquilerVehiculos {
         Cliente cliente2 = new Cliente("bb", "22222222B", direccionPostal2);
         añadirCliente(cliente1);
         añadirCliente(cliente2);
-        Turismo vehiculo1 = new Turismo("1111BBB", "Seat", "Ibiza", 1900);
-        Turismo vehiculo2 = new Turismo("2222BBB", "Opel", "Corsa", 1600);
-        añadirTurismo(vehiculo1);
-        añadirTurismo(vehiculo2);
-
-        abrirAlquiler(cliente1, buscarTurismo("2222BBB"));
+        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Seat", "Ibiza", 1900);
+        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", 1600);
+        añadirVehiculo(vehiculo1);
+        añadirVehiculo(vehiculo2);
+        abrirAlquiler(cliente1, buscarVehiculo("2222BBB"));
         vehiculo2.setDisponible(false);
     }
 }

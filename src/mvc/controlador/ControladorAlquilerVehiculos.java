@@ -1,14 +1,18 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
+
  * To change this template file, choose Tools | Templates
+
  * and open the template in the editor.
+
  */
 package mvc.controlador;
 
 import mvc.modelo.AlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
-import mvc.modelo.dominio.Turismo;
+import mvc.dominio.vehiculo.Vehiculo;
 import mvc.vista.IUTextual;
 
 /**
@@ -31,21 +35,20 @@ public class ControladorAlquilerVehiculos {
         vista.comenzar();
     }
 
-    public void anadirTurismo(Turismo turismo) {
-        modelo.añadirTurismo(turismo);
+    public void anadirVehiculo(Vehiculo vehiculo) {
+        modelo.añadirVehiculo(vehiculo);
     }
 
-    public void borrarTurismo(String matricula) {
-        modelo.borrarTurismo(matricula);
+    public void borrarVehiculo(String matricula) {
+        modelo.borrarVehiculo(matricula);
     }
 
-    public Turismo buscarTurismo(String matricula) {
-
-        return modelo.buscarTurismo(matricula);
+    public Vehiculo buscarVehiculo(String matricula) {
+        return modelo.buscarVehiculo(matricula);
     }
 
-    public Turismo[] obtenerTurismos() {
-        return modelo.obtenerTurismos();
+    public Vehiculo[] obtenerVehiculos() {
+        return modelo.obtenerVehiculos();
     }
 
     public void anadirCliente(Cliente cliente) {
@@ -64,16 +67,15 @@ public class ControladorAlquilerVehiculos {
         return modelo.obtenerClientes();
     }
 
-    public void abrirAlquiler(Cliente cliente, Turismo turismo) {
+    public void abrirAlquiler(Cliente cliente, Vehiculo turismo) {
         modelo.abrirAlquiler(cliente, turismo);
     }
 
-    public void cerrarAlquiler(Cliente cliente, Turismo turismo) {
+    public void cerrarAlquiler(Cliente cliente, Vehiculo turismo) {
         modelo.cerrarAlquiler(cliente, turismo);
     }
 
     public Alquiler[] obtenerAlquileres() {
         return modelo.obtenerAlquileres();
     }
-
 }

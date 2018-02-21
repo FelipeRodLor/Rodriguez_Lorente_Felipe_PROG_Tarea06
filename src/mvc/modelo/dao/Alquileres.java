@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package mvc.modelo.dao;
 
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.Turismo;
+import mvc.dominio.vehiculo.Vehiculo;
 
 /**
  *
@@ -27,39 +28,42 @@ public class Alquileres {
         return alquileres.clone();
     }
 
-    public void abrir(Cliente cliente, Turismo turismo) {
+    public void abrir(Cliente cliente, Vehiculo vehiculo) {
         int posicion = 0;
         boolean disponible = false;
 
-        if (turismo.getDisponible()) {
+        if (vehiculo.getDisponible()) {
             while (posicion < alquileres.length && !disponible) {
+                
                 if (alquileres[posicion] == null) {
                     disponible = true;
+               
                 } else {
                     posicion++;
                 }
             }
+            
         } else {
-            throw new ExcepcionAlquilerVehiculos("El turismo no esta disponible");
-
+            throw new ExcepcionAlquilerVehiculos("El vehiculo no esta disponible");
         }
+        
         if (disponible) {
-            alquileres[posicion] = new Alquiler(cliente, turismo);
-            turismo.setDisponible(false);
+            alquileres[posicion] = new Alquiler(cliente, vehiculo);
+            vehiculo.setDisponible(false);
 
         } else {
             throw new ExcepcionAlquilerVehiculos("El registro de alquileres esta lleno. Se deben eliminar registros");
         }
-
     }
 
-    public void cerrar(Cliente cliente, Turismo turismo) {
+    public void cerrar(Cliente cliente, Vehiculo vehiculo) {
         int posicion = 0;
         boolean existe = false;
 
         while (posicion < alquileres.length && !existe) {
-            if (alquileres[posicion] != null && alquileres[posicion].getCliente().getDni().equals(cliente.getDni()) && alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula()) && alquileres[posicion].getDias() == 0) {
+            if (alquileres[posicion] != null && alquileres[posicion].getCliente().getDni().equals(cliente.getDni()) && alquileres[posicion].getVehiculo().getMatricula().equals(vehiculo.getMatricula()) && alquileres[posicion].getDias() == 0) {
                 existe = true;
+
             } else {
                 posicion++;
             }
@@ -67,10 +71,10 @@ public class Alquileres {
         if (existe) {
 
             alquileres[posicion].close();
-            turismo.setDisponible(true);
+            vehiculo.setDisponible(true);
+
         } else {
             throw new ExcepcionAlquilerVehiculos("El alquiler que se desea cerrar no existe");
         }
-
     }
 }
