@@ -8,6 +8,7 @@
 
  */
 package utilidades;
+import mvc.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
@@ -80,6 +81,8 @@ public class Consola {
 
     public static Vehiculo leerVehiculo() {
         Vehiculo nuevoVehiculo = null;
+        DatosTecnicosVehiculo datosTecnicos;
+        
         System.out.println("\nDATOS DEL VEHICULO");
         System.out.println("-------------------");
         System.out.print("Matricula; ");
@@ -89,11 +92,15 @@ public class Consola {
         System.out.print("Modelo; ");
         String modelo = Entrada.cadena();
         System.out.print("Cilindrada; ");
-        
         int cilindrada = Entrada.entero();
+        System.out.println("Numero de plazas; ");
+        int numeroPlazas = Entrada.entero();
+        System.out.println("PMA; ");
+        int pma = Entrada.entero();
 
         try {
-            nuevoVehiculo = new Vehiculo(matricula, marca, modelo, cilindrada);
+            datosTecnicos = new DatosTecnicosVehiculo (cilindrada, numeroPlazas, pma);
+            nuevoVehiculo = new Vehiculo(matricula, marca, modelo, datosTecnicos);
 
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());

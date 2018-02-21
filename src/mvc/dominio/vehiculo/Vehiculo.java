@@ -7,7 +7,6 @@ package mvc.dominio.vehiculo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 /**
  *
  * @author Felipillo
@@ -17,14 +16,18 @@ public class Vehiculo {
     private String matricula;
     private String marca;
     private String modelo;
-    private int cilindrada;
+    private DatosTecnicosVehiculo datosTecnicos;
     private boolean disponible;
+    
+    private final double FACTOR_CILINDRADA = 50;
+    private final double FACTOR_NUMERO_PLAZAS = 20;
+    private final double FACTOR_PMA = 50; 
 
-    public Vehiculo(String matricula, String marca, String modelo, int cilindrada) {
+    public Vehiculo(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicosVehiculo) {
         setMatricula(matricula);
         setMarca(marca);
         setModelo(modelo);
-        setCilindrada(cilindrada);
+        this.datosTecnicos = datosTecnicosVehiculo;
         disponible = true;
 
     }
@@ -64,21 +67,11 @@ public class Vehiculo {
         }
     }
 
-    private void setCilindrada(int cilindrada) {
-
-        if (marca != null && !marca.equals("") && cilindrada > 0) {
-            this.cilindrada = cilindrada;
-
-        } else {
-            throw new ExcepcionAlquilerVehiculos("La cilindrada  introducida no es correcta");
-        }
-    }
-
     public Vehiculo(Vehiculo vehiculo) {
         matricula = vehiculo.getMatricula();
         marca = vehiculo.getMarca();
         modelo = vehiculo.getModelo();
-        cilindrada = vehiculo.getCilindrada();
+        datosTecnicos = vehiculo.getDatosTecnicos();
         this.disponible = vehiculo.disponible;
     }
 
@@ -94,8 +87,8 @@ public class Vehiculo {
         return modelo;
     }
 
-    public int getCilindrada() {
-        return cilindrada;
+    public DatosTecnicosVehiculo getDatosTecnicos() {
+        return datosTecnicos;
     }
 
     public boolean getDisponible() {
@@ -107,7 +100,7 @@ public class Vehiculo {
     }
 
     public String toString() {
-        return (" MATRICULA; " + matricula + " MARCA; " + marca + " MODELO; " + modelo + " CILINDRADA; " + cilindrada + " DISPONIBLE; " + disponible);
+        return (" MATRICULA; " + matricula + " MARCA; " + marca + " MODELO; " + modelo + datosTecnicos);
     }
 
 }

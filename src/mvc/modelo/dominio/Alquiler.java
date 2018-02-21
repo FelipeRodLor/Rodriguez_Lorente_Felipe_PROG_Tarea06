@@ -62,7 +62,7 @@ public class Alquiler {
     }
 
     public double getPrecio() {
-        return PRECIO_DIA * dias + vehiculo.getCilindrada() / 100;
+        return PRECIO_DIA * dias + vehiculo.getDatosTecnicos().getCilindrada()/ 100;
     }
 
     public String toString() {

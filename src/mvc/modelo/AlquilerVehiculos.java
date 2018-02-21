@@ -5,6 +5,7 @@
  */
 package mvc.modelo;
 
+import mvc.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dao.Clientes;
 import mvc.modelo.dao.Turismos;
@@ -81,8 +82,10 @@ public class AlquilerVehiculos {
         Cliente cliente2 = new Cliente("bb", "22222222B", direccionPostal2);
         añadirCliente(cliente1);
         añadirCliente(cliente2);
-        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Seat", "Ibiza", 1900);
-        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", 1600);
+        DatosTecnicosVehiculo datosTecnicosVehiculo1 = new DatosTecnicosVehiculo(2000,4, 1000);
+        DatosTecnicosVehiculo datosTecnicosVehiculo2 = new DatosTecnicosVehiculo(1000, 4, 1000);
+        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Seat", "Ibiza", datosTecnicosVehiculo1);
+        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", datosTecnicosVehiculo2);
         añadirVehiculo(vehiculo1);
         añadirVehiculo(vehiculo2);
         abrirAlquiler(cliente1, buscarVehiculo("2222BBB"));
