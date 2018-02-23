@@ -31,7 +31,7 @@ public class Turismos {
         int indice = buscarPrimerIndiceLibreComprobandoExistencia(vehiculo);
 
         if (indiceNoSuperaTamaño(indice)) {
-            turismos[indice] = new Vehiculo(vehiculo);
+            turismos[indice] = new Vehiculo(vehiculo) {};
 
         } else {
             throw new ExcepcionAlquilerVehiculos("El array de vehiculos está lleno.");
