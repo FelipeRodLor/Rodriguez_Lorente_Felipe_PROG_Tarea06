@@ -5,12 +5,12 @@
  */
 package mvc.modelo;
 
-import mvc.dominio.vehiculo.DatosTecnicosVehiculo;
+import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dao.Clientes;
 import mvc.modelo.dao.Turismos;
 import mvc.modelo.dominio.Alquiler;
-import mvc.dominio.vehiculo.Vehiculo;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 

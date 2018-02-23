@@ -6,7 +6,7 @@
 
 package mvc.modelo.dominio;
 
-import mvc.dominio.vehiculo.Vehiculo;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

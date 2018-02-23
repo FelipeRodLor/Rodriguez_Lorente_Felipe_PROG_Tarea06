@@ -6,7 +6,7 @@
 package mvc.modelo.dao;
 
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.dominio.vehiculo.Vehiculo;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 
 /**
  *

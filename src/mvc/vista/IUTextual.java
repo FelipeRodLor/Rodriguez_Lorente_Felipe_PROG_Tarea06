@@ -9,7 +9,7 @@ import utilidades.Consola;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
-import mvc.dominio.vehiculo.Vehiculo;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.Cliente;
 
 /**

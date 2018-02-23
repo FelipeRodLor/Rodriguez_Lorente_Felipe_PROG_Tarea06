@@ -9,7 +9,7 @@ package mvc.modelo.dao;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.dominio.vehiculo.Vehiculo;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mvc.dominio.vehiculo;
+package mvc.modelo.dominio.vehiculo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
