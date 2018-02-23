@@ -20,8 +20,8 @@ public abstract class Vehiculo {
     private boolean disponible;
     
     public final double FACTOR_CILINDRADA = 50;
-    public final double FACTOR_NUMERO_PLAZAS = 20;
-    public final double FACTOR_PMA = 50; 
+    public final double FACTOR_NUMERO_PLAZAS = 1;
+    public final double FACTOR_PMA = 20; 
 
     public Vehiculo(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicosVehiculo) {
         setMatricula(matricula);

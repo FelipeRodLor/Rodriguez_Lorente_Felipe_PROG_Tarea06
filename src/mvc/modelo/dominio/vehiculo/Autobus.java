@@ -9,24 +9,24 @@ package mvc.modelo.dominio.vehiculo;
  *
  * @author Felipon
  */
-public class DeCarga extends Vehiculo {
+public class Autobus extends Vehiculo {
 
-    public DeCarga(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicosVehiculo) {
+    public Autobus(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicosVehiculo) {
         super(matricula, marca, modelo, datosTecnicosVehiculo);
     }
 
-    public DeCarga(DeCarga DeCarga) {
-        super(DeCarga);
+    public Autobus(Autobus autobus) {
+        super(autobus);
     }
 
     @Override
     public TipoVehiculo getTipoVehiculo() {
-        return TipoVehiculo.DE_CARGA;
+        return TipoVehiculo.AUTOBUS;
     }
 
     @Override
     public double getPrecioEspecifico() {
-        return getDatosTecnicos().getPma() / FACTOR_PMA + FACTOR_NUMERO_PLAZAS * getDatosTecnicos().getNumeroPlazas();
+        return getDatosTecnicos().getCilindrada()/ FACTOR_CILINDRADA + FACTOR_NUMERO_PLAZAS * getDatosTecnicos().getNumeroPlazas(); //cilindrada / 50 + 1 * nº plazas
 
     }
 
