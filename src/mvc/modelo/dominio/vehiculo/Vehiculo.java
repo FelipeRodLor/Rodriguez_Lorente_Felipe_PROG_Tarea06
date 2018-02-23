@@ -12,7 +12,7 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
  * @author Felipillo
  *
  */
-public class Vehiculo {
+public abstract class Vehiculo {
     private String matricula;
     private String marca;
     private String modelo;
@@ -31,6 +31,10 @@ public class Vehiculo {
         disponible = true;
 
     }
+    
+    public abstract TipoVehiculo getTipoVehiculo();
+    public abstract double getPrecioEspecifico();
+      
     public void setMatricula(String matricula) {
 
         if (compruebaMatricula(matricula)) {
