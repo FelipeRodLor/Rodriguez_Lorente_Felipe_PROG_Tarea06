@@ -15,8 +15,8 @@ public class  Turismo extends Vehiculo{
         super(matricula, marca, modelo, datosTecnicosVehiculo);
     }
 
-    public Turismo(Turismo turismo) {
-        super(turismo);
+    public Turismo(Vehiculo vehiculo) {
+        super(vehiculo);
     }
 
     @Override

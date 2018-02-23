@@ -15,8 +15,8 @@ public class DeCarga extends Vehiculo {
         super(matricula, marca, modelo, datosTecnicosVehiculo);
     }
 
-    public DeCarga(DeCarga DeCarga) {
-        super(DeCarga);
+    public DeCarga(Vehiculo vehiculo) {
+        super(vehiculo);
     }
 
     @Override
