@@ -6,7 +6,7 @@
 package mvc.vista;
 
 import mvc.controlador.ControladorAlquilerVehiculos;
-import mvc.modelo.AlquilerVehiculos;
+import mvc.modelo.ModeloAlquilerVehiculos;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Principal {
 
     public static void main(String[] args) {
         IUTextual vista = new IUTextual();
-        AlquilerVehiculos modelo = new AlquilerVehiculos();
+        ModeloAlquilerVehiculos modelo = new ModeloAlquilerVehiculos();
         ControladorAlquilerVehiculos controlador = new ControladorAlquilerVehiculos(modelo, vista);
         controlador.comenzar();
     }

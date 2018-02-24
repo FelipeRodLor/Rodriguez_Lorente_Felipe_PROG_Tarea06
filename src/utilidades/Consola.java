@@ -8,12 +8,15 @@
 
  */
 package utilidades;
+
 import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.Opcion;
+
 /**
  *
  *
@@ -22,7 +25,7 @@ import mvc.vista.Opcion;
  *
  */
 public class Consola {
-    
+
     public static void mostrarCabecera(String mensaje) {
         System.out.printf("%n%s%n", mensaje);
         for (int i = 0; i < mensaje.length(); i++) {
@@ -33,7 +36,7 @@ public class Consola {
 
     public static int elegirOpcion() {
         int ordinalOpcion;
-        
+
         do {
             System.out.print("\nElige una opción: ");
             ordinalOpcion = Entrada.entero();
@@ -56,8 +59,7 @@ public class Consola {
 
     public static Cliente leerCliente() {
         Cliente nuevoCliente = null;
-        System.out.println("\nDATOS DEL CLIENTE");
-        System.out.println("-------------------");
+        mostrarCabecera("DATOS DEL CLIENTE");
         System.out.print("Nombre; ");
         String nombre = Entrada.cadena();
         System.out.print("Dni; ");
@@ -82,9 +84,10 @@ public class Consola {
     public static Vehiculo leerVehiculo() {
         Vehiculo nuevoVehiculo = null;
         DatosTecnicosVehiculo datosTecnicos;
-        
-        System.out.println("\nDATOS DEL VEHICULO");
-        System.out.println("-------------------");
+        int ordinalTipoVehiculo = 0;
+
+        mostrarCabecera("DATOS DEL VEHICULO");
+
         System.out.print("Matricula; ");
         String matricula = Entrada.cadena();
         System.out.print("Marca; ");
@@ -93,18 +96,15 @@ public class Consola {
         String modelo = Entrada.cadena();
         System.out.print("Cilindrada; ");
         int cilindrada = Entrada.entero();
-        System.out.println("Numero de plazas; ");
+        System.out.print("Numero de plazas; ");
         int numeroPlazas = Entrada.entero();
-        System.out.println("PMA; ");
+        System.out.print("PMA; ");
         int pma = Entrada.entero();
 
-        try {
-            datosTecnicos = new DatosTecnicosVehiculo (cilindrada, numeroPlazas, pma);
-            nuevoVehiculo = new Vehiculo(matricula, marca, modelo, datosTecnicos);
+        datosTecnicos = new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma);
+        ordinalTipoVehiculo = elegirTipoVehiculo();
+        nuevoVehiculo = TipoVehiculo.getTipoVehiculoSegunOridnal(ordinalTipoVehiculo).getInstancia(matricula, marca, modelo, datosTecnicos);
 
-        } catch (ExcepcionAlquilerVehiculos e) {
-            System.out.printf("\nERROR: %s%n%n", e.getMessage());
-        }
         return nuevoVehiculo;
     }
 
@@ -114,5 +114,29 @@ public class Consola {
         for (Opcion opcion : Opcion.values()) {
             System.out.println(opcion);
         }
+    }
+
+    public static int elegirTipoVehiculo() {
+        int ordinalTipoVehiculo;
+
+        do {
+            System.out.println("\n¿Que tipo de vehiculo es? ");
+            System.out.println("");
+            //for (TipoVehiculo opcion : TipoVehiculo.values()) { 
+            System.out.println(obtenerTiposVehiculo());
+
+            ordinalTipoVehiculo = Entrada.entero();
+
+        } while (!TipoVehiculo.esOrdinalValido(ordinalTipoVehiculo));
+
+        return ordinalTipoVehiculo;
+    }
+
+    private static String obtenerTiposVehiculo() {
+        StringBuilder tiposVehiculo = new StringBuilder("");
+        for (TipoVehiculo tipoVehiculo : TipoVehiculo.values()) {
+            tiposVehiculo.append(tipoVehiculo.ordinal()).append(".- ").append(tipoVehiculo).append(" ");
+        }
+        return tiposVehiculo.toString();
     }
 }

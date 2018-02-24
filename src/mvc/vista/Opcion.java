@@ -24,6 +24,11 @@ public enum Opcion {
             vista.borrarCliente();
         }
     },
+    BUSCAR_CLIENTE("BUSCAR CLIENTE"){
+        public void ejecutar(){
+            vista.buscarVehiculo();
+        }
+    },
     LISTAR_CLIENTES("LISTAR CLIENTES") {
         public void ejecutar() {
             vista.listarClientes();
@@ -39,7 +44,12 @@ public enum Opcion {
             vista.borrarVehiculo();
         }
     },
-    LISTAR_VEHICULO("LISTAR VEHICULO") {
+    BUSCAR_VEHICULO("BUSCAR VEHICULO"){
+        public void ejecutar(){
+            vista.buscarVehiculo();
+        }
+    },
+    LISTAR_VEHICULOS("LISTAR VEHICULO") {
         public void ejecutar() {
             vista.listarVehiculos();
         }

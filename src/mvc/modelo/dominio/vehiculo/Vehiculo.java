@@ -18,10 +18,10 @@ public abstract class Vehiculo {
     private String modelo;
     private DatosTecnicosVehiculo datosTecnicos;
     private boolean disponible;
-    
+
     public final double FACTOR_CILINDRADA = 50;
     public final double FACTOR_NUMERO_PLAZAS = 1;
-    public final double FACTOR_PMA = 20; 
+    public final double FACTOR_PMA = 20;
 
     public Vehiculo(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicosVehiculo) {
         setMatricula(matricula);
@@ -31,15 +31,15 @@ public abstract class Vehiculo {
         disponible = true;
 
     }
-    
+
     public abstract TipoVehiculo getTipoVehiculo();
     public abstract double getPrecioEspecifico();
-      
+
     public void setMatricula(String matricula) {
 
         if (compruebaMatricula(matricula)) {
             this.matricula = matricula;
-       
+
         } else {
             throw new ExcepcionAlquilerVehiculos("La matricula introducida no es correcta");
         }
@@ -50,7 +50,7 @@ public abstract class Vehiculo {
 
         return emparejador.matches();
     }
-    
+
     private void setMarca(String marca) {
 
         if (marca != null && !marca.equals("")) {

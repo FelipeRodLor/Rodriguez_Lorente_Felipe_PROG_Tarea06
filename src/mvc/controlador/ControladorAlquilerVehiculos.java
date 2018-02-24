@@ -9,9 +9,10 @@
  */
 package mvc.controlador;
 
-import mvc.modelo.AlquilerVehiculos;
+import mvc.modelo.ModeloAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.IUTextual;
 
@@ -22,9 +23,9 @@ import mvc.vista.IUTextual;
 public class ControladorAlquilerVehiculos {
 
     IUTextual vista;
-    AlquilerVehiculos modelo;
+    ModeloAlquilerVehiculos modelo;
 
-    public ControladorAlquilerVehiculos(AlquilerVehiculos modelo, IUTextual vista) {
+    public ControladorAlquilerVehiculos(ModeloAlquilerVehiculos modelo, IUTextual vista) {
         this.vista = vista;
         this.modelo = modelo;
         vista.setControlador(this);

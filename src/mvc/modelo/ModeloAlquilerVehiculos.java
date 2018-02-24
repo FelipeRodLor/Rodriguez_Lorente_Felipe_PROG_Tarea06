@@ -8,26 +8,27 @@ package mvc.modelo;
 import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dao.Clientes;
-import mvc.modelo.dao.Turismos;
+import mvc.modelo.dao.Vehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 
 /**
  *
  * @author Felipillo
  */
-public class AlquilerVehiculos {
+public class ModeloAlquilerVehiculos {
 
     private Clientes clientes;
     private Alquileres alquileres;
-    private Turismos turismos;
+    private Vehiculos vehiculos;
 
-    public AlquilerVehiculos() {
+    public ModeloAlquilerVehiculos() {
         clientes = new Clientes();
         alquileres = new Alquileres();
-        turismos = new Turismos();
+        vehiculos = new Vehiculos();
     }
 
     public Alquiler[] obtenerAlquileres() {
@@ -35,7 +36,7 @@ public class AlquilerVehiculos {
     }
 
     public Vehiculo[] obtenerVehiculos() {
-        return turismos.getVehiculo();
+        return vehiculos.getVehiculo();
     }
 
     public Cliente[] obtenerClientes() {
@@ -55,15 +56,15 @@ public class AlquilerVehiculos {
     }
 
     public void añadirVehiculo(Vehiculo vehiculo) {
-        turismos.añadir(vehiculo);
+        vehiculos.añadir(vehiculo);
     }
 
     public void borrarVehiculo(String matricula) {
-        turismos.borrar(matricula);
+        vehiculos.borrar(matricula);
     }
 
     public Vehiculo buscarVehiculo(String matricula) {
-        return turismos.buscar(matricula);
+        return vehiculos.buscar(matricula);
     }
 
     public void abrirAlquiler(Cliente cliente, Vehiculo vehiculo) {
@@ -82,13 +83,18 @@ public class AlquilerVehiculos {
         Cliente cliente2 = new Cliente("bb", "22222222B", direccionPostal2);
         añadirCliente(cliente1);
         añadirCliente(cliente2);
-        DatosTecnicosVehiculo datosTecnicosVehiculo1 = new DatosTecnicosVehiculo(2000,4, 1000);
+        DatosTecnicosVehiculo datosTecnicosVehiculo1 = new DatosTecnicosVehiculo(2000, 4, 1000);
         DatosTecnicosVehiculo datosTecnicosVehiculo2 = new DatosTecnicosVehiculo(1000, 4, 1000);
-        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Seat", "Ibiza", datosTecnicosVehiculo1);
-        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", datosTecnicosVehiculo2);
+        TipoVehiculo tipoVehiculo1 = TipoVehiculo.TURISMO;
+        Vehiculo vehiculo1 = tipoVehiculo1.getInstancia("1111AAA", "Citroen", "C4", datosTecnicosVehiculo2);
         añadirVehiculo(vehiculo1);
+        TipoVehiculo tipoVehiculo2 = TipoVehiculo.DE_CARGA;
+        Vehiculo vehiculo2 = tipoVehiculo2.getInstancia("1111SSS", "Renault", "Expres", datosTecnicosVehiculo2);
         añadirVehiculo(vehiculo2);
-        abrirAlquiler(cliente1, buscarVehiculo("2222BBB"));
-        vehiculo2.setDisponible(false);
+        TipoVehiculo tipoVehiculo3 = TipoVehiculo.AUTOBUS;
+        Vehiculo vehiculo3 = tipoVehiculo3.getInstancia("2222AAA", "Volvo", "V8", datosTecnicosVehiculo2);
+        añadirVehiculo(vehiculo3);
+        abrirAlquiler(cliente1, buscarVehiculo("2222AAA"));
+        
     }
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package mvc.vista;
+
 import mvc.controlador.ControladorAlquilerVehiculos;
 import utilidades.Consola;
 import mvc.modelo.dao.Alquileres;
@@ -11,6 +12,7 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.Cliente;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 
 /**
  *
@@ -18,16 +20,19 @@ import mvc.modelo.dominio.Cliente;
  *
  */
 public class IUTextual {
+
     ControladorAlquilerVehiculos controlador;
-    
+
     public IUTextual() {
         Opcion.setVista(this);
 
     }
+
     public void setControlador(ControladorAlquilerVehiculos controlador) {
         this.controlador = controlador;
 
     }
+
     public void comenzar() {
         int ordinalOpcion;
 
@@ -40,20 +45,23 @@ public class IUTextual {
         } while (ordinalOpcion != Opcion.SALIR.ordinal());
 
     }
+
     public void salir() {
         System.out.println("HAS ABANDONADO SATISFACTORIAMENTE");
 
     }
+
     public void listarAlquileres() {
         Consola.mostrarCabecera("LISTADO DE ALQUILERES");
-        
+
         for (Alquiler listaAlquileres : controlador.obtenerAlquileres()) {
-            
+
             if (listaAlquileres != null) {
                 System.out.println(listaAlquileres);
             }
         }
     }
+
     public void cerrarAlquiler() {
         Alquileres alquileres = null;
         Consola.mostrarCabecera("CIERRE DE ALQUILER");
@@ -70,6 +78,7 @@ public class IUTextual {
             System.out.printf("\nERROR:  %s%n%n", e.getMessage());
         }
     }
+
     public void abrirAlquiler() {
         Alquiler nuevoAlquiler = null;
         Consola.mostrarCabecera("APERTURA DE ALQUILER");
@@ -86,6 +95,7 @@ public class IUTextual {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
+
     public void listarVehiculos() {
         Consola.mostrarCabecera("LISTADO DE VEHICULOS");
 
@@ -96,10 +106,11 @@ public class IUTextual {
             }
         }
     }
+
     public void borrarVehiculo() {
         Consola.mostrarCabecera("BORRAR VEHICULO");
         String matriculaBorrar = Consola.leerMatricula();
-       
+
         try {
             controlador.borrarVehiculo(matriculaBorrar);
             System.out.println("\nOperacion realizada");
@@ -108,12 +119,21 @@ public class IUTextual {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
+    
+    public void buscarVehiculo(){
+        Consola.mostrarCabecera("BUSCAR VEHICULO");
+        String matriculaBuscar = Consola.leerMatricula();
+        controlador.buscarVehiculo(matriculaBuscar);
+    }
+
     public void anadirVehiculo() {
         Consola.mostrarCabecera("ALTA VEHICULO");
-       
-        if (Consola.leerVehiculo() != null) {
+        Vehiculo vehiculo = Consola.leerVehiculo();
+
+        if (vehiculo != null) {
+
             try {
-                controlador.anadirVehiculo(Consola.leerVehiculo());
+                controlador.anadirVehiculo(vehiculo);
                 System.out.println("\nOperacion realizada");
 
             } catch (ExcepcionAlquilerVehiculos i) {
@@ -121,6 +141,7 @@ public class IUTextual {
             }
         }
     }
+
     public void listarClientes() {
         Consola.mostrarCabecera("LISTADO DE CLIENTES");
 
@@ -131,10 +152,11 @@ public class IUTextual {
             }
         }
     }
+
     public void borrarCliente() {
         Consola.mostrarCabecera("BORRAR CLIENTE");
         String dniBorrar = Consola.leerDni();
-        
+
         try {
             controlador.borrarCliente(dniBorrar);
             System.out.println("\nOperacion realizada");
@@ -143,11 +165,17 @@ public class IUTextual {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
+    
+    public void buscarCliente(){
+        Consola.mostrarCabecera("BUSCAR CLIENTE");
+        String dniBuscar = Consola.leerDni();
+        controlador.buscarCliente(dniBuscar);
+    }
 
     public void anadirCliente() {
         Consola.mostrarCabecera("ALTA CLIENTE");
         Cliente cliente = Consola.leerCliente();
-        
+
         if (cliente != null) {
             try {
                 controlador.anadirCliente(cliente);
