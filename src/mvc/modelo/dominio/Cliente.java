@@ -92,7 +92,7 @@ public class Cliente {
 
     public String toString() {
 
-        return (" DNI; " + dni + " NOMBRE; " + nombre + direccionPostal.toString() + " ID; " + identificador);
+        return ("DNI; " + dni + " NOMBRE; " + nombre + direccionPostal.toString() + " ID; " + identificador);
     }
 
 }

@@ -6,9 +6,8 @@
 package mvc.modelo.dao;
 
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.vehiculo.TipoVehiculo;
+
 import mvc.modelo.dominio.vehiculo.Vehiculo;
-import utilidades.Consola;
 
 /**
  *
@@ -17,7 +16,7 @@ import utilidades.Consola;
  */
 public class Vehiculos {
 
-    private final int MAX_VEHICULOS = 3;
+    private final int MAX_VEHICULOS = 10;
     private Vehiculo[] vehiculos;
 
     public Vehiculos() {
@@ -69,7 +68,7 @@ public class Vehiculos {
     private int buscarIndiceVehiculo(String matricula) {
         int indice = 0;
         boolean existe = false;
-       
+
         while (indiceNoSuperaTamaño(indice) && !existe) {
             if (vehiculos[indice] != null && vehiculos[indice].getMatricula().equals(matricula)) {
                 existe = true;
@@ -96,13 +95,6 @@ public class Vehiculos {
 
     public Vehiculo buscar(String matricula) {
 
-        /*
-
-        Turismo copiaTurismo = new Turismo(turismos[buscarIndiceTurismo(matricula)]);
-
-        return copiaTurismo;
-
-         */
         return vehiculos[buscarIndiceVehiculo(matricula)];
     }
 }

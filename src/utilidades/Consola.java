@@ -84,7 +84,7 @@ public class Consola {
     public static Vehiculo leerVehiculo() {
         Vehiculo nuevoVehiculo = null;
         DatosTecnicosVehiculo datosTecnicos;
-        int ordinalTipoVehiculo = 0;
+        int ordinalTipoVehiculo;
 
         mostrarCabecera("DATOS DEL VEHICULO");
 
@@ -101,10 +101,14 @@ public class Consola {
         System.out.print("PMA; ");
         int pma = Entrada.entero();
 
+        try{
         datosTecnicos = new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma);
         ordinalTipoVehiculo = elegirTipoVehiculo();
         nuevoVehiculo = TipoVehiculo.getTipoVehiculoSegunOridnal(ordinalTipoVehiculo).getInstancia(matricula, marca, modelo, datosTecnicos);
-
+        
+        }catch (ExcepcionAlquilerVehiculos e){
+            System.out.printf("\nERROR: %s%n%n", e.getMessage());
+        }
         return nuevoVehiculo;
     }
 
@@ -122,7 +126,6 @@ public class Consola {
         do {
             System.out.println("\n¿Que tipo de vehiculo es? ");
             System.out.println("");
-            //for (TipoVehiculo opcion : TipoVehiculo.values()) { 
             System.out.println(obtenerTiposVehiculo());
 
             ordinalTipoVehiculo = Entrada.entero();

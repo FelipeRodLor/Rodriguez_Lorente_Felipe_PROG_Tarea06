@@ -63,7 +63,7 @@ public abstract class Vehiculo {
 
     private void setModelo(String modelo) {
 
-        if (marca != null && !marca.equals("")) {
+        if (modelo != null && !modelo.equals("")) {
             this.modelo = modelo;
 
         } else {
@@ -104,7 +104,7 @@ public abstract class Vehiculo {
     }
 
     public String toString() {
-        return (" MATRICULA; " + matricula + " MARCA; " + marca + " MODELO; " + modelo + datosTecnicos);
+        return ("MATRICULA; " + matricula + " MARCA; " + marca + " MODELO; " + modelo + datosTecnicos);
     }
 
 }

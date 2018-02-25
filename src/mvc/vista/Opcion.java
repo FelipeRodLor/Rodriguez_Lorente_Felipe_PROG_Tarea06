@@ -26,7 +26,7 @@ public enum Opcion {
     },
     BUSCAR_CLIENTE("BUSCAR CLIENTE"){
         public void ejecutar(){
-            vista.buscarVehiculo();
+            vista.buscarCliente();
         }
     },
     LISTAR_CLIENTES("LISTAR CLIENTES") {

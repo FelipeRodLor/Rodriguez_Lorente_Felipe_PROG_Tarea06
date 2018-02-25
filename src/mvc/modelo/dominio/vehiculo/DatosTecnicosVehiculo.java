@@ -25,9 +25,10 @@ public class DatosTecnicosVehiculo {
     }
 
     public DatosTecnicosVehiculo(int cilindrada, int numeroPlazas, int pma) {
-        this.cilindrada = cilindrada;
-        this.numeroPlazas = numeroPlazas;
-        this.pma = pma;
+        setCilindrada(cilindrada);
+        setNumeroPlazas(numeroPlazas);
+        setPma(pma);
+       
     }
 
     public int getCilindrada() {

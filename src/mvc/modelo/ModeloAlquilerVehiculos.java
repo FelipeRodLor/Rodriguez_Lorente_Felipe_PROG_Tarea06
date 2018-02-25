@@ -19,7 +19,7 @@ import mvc.modelo.dominio.vehiculo.TipoVehiculo;
  *
  * @author Felipillo
  */
-public class ModeloAlquilerVehiculos {
+public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
 
     private Clientes clientes;
     private Alquileres alquileres;
@@ -31,50 +31,62 @@ public class ModeloAlquilerVehiculos {
         vehiculos = new Vehiculos();
     }
 
+    @Override
     public Alquiler[] obtenerAlquileres() {
         return alquileres.getAlquiler();
     }
 
+    @Override
     public Vehiculo[] obtenerVehiculos() {
         return vehiculos.getVehiculo();
     }
 
+    @Override
     public Cliente[] obtenerClientes() {
         return clientes.getClientes();
     }
 
+    @Override
     public Cliente buscarCliente(String dni) {
         return clientes.buscar(dni);
     }
 
+    @Override
     public void añadirCliente(Cliente cliente) {
         clientes.añadir(cliente);
     }
 
+    @Override
     public void borrarCliente(String dni) {
         clientes.borrar(dni);
     }
 
+    @Override
     public void añadirVehiculo(Vehiculo vehiculo) {
         vehiculos.añadir(vehiculo);
     }
 
+    @Override
     public void borrarVehiculo(String matricula) {
         vehiculos.borrar(matricula);
     }
 
+    @Override
     public Vehiculo buscarVehiculo(String matricula) {
         return vehiculos.buscar(matricula);
     }
 
+    @Override
     public void abrirAlquiler(Cliente cliente, Vehiculo vehiculo) {
         alquileres.abrir(cliente, vehiculo);
     }
 
+    @Override
     public void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo) {
         alquileres.cerrar(cliente, vehiculo);
     }
 
+    @Override
     public void añadirDatosPrueba() {
 
         DireccionPostal direccionPostal1 = new DireccionPostal("aaa", "aaaa", "04009");

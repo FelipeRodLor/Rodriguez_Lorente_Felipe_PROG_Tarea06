@@ -12,14 +12,13 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.Cliente;
-import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 
 /**
  *
  * @author Felipillo
  *
  */
-public class IUTextual {
+public class IUTextual implements IVistaAlquilerVehiculos {
 
     ControladorAlquilerVehiculos controlador;
 
@@ -28,11 +27,13 @@ public class IUTextual {
 
     }
 
+    @Override
     public void setControlador(ControladorAlquilerVehiculos controlador) {
         this.controlador = controlador;
 
     }
 
+    @Override
     public void comenzar() {
         int ordinalOpcion;
 
@@ -46,11 +47,13 @@ public class IUTextual {
 
     }
 
+    @Override
     public void salir() {
         System.out.println("HAS ABANDONADO SATISFACTORIAMENTE");
 
     }
 
+    @Override
     public void listarAlquileres() {
         Consola.mostrarCabecera("LISTADO DE ALQUILERES");
 
@@ -62,6 +65,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void cerrarAlquiler() {
         Alquileres alquileres = null;
         Consola.mostrarCabecera("CIERRE DE ALQUILER");
@@ -79,6 +83,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void abrirAlquiler() {
         Alquiler nuevoAlquiler = null;
         Consola.mostrarCabecera("APERTURA DE ALQUILER");
@@ -96,6 +101,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void listarVehiculos() {
         Consola.mostrarCabecera("LISTADO DE VEHICULOS");
 
@@ -107,6 +113,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void borrarVehiculo() {
         Consola.mostrarCabecera("BORRAR VEHICULO");
         String matriculaBorrar = Consola.leerMatricula();
@@ -119,13 +126,21 @@ public class IUTextual {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
-    
-    public void buscarVehiculo(){
+
+    @Override
+    public void buscarVehiculo() {
         Consola.mostrarCabecera("BUSCAR VEHICULO");
         String matriculaBuscar = Consola.leerMatricula();
-        controlador.buscarVehiculo(matriculaBuscar);
+
+        try {
+            System.out.println("");
+            System.out.println(controlador.buscarVehiculo(matriculaBuscar));
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("\nERROR: %s%n%n", e.getMessage());
+        }
     }
 
+    @Override
     public void anadirVehiculo() {
         Consola.mostrarCabecera("ALTA VEHICULO");
         Vehiculo vehiculo = Consola.leerVehiculo();
@@ -142,6 +157,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void listarClientes() {
         Consola.mostrarCabecera("LISTADO DE CLIENTES");
 
@@ -153,6 +169,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void borrarCliente() {
         Consola.mostrarCabecera("BORRAR CLIENTE");
         String dniBorrar = Consola.leerDni();
@@ -165,13 +182,22 @@ public class IUTextual {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
-    
-    public void buscarCliente(){
+
+    @Override
+    public void buscarCliente() {
         Consola.mostrarCabecera("BUSCAR CLIENTE");
         String dniBuscar = Consola.leerDni();
-        controlador.buscarCliente(dniBuscar);
+
+        try {
+            System.out.println("");
+            System.out.println(controlador.buscarCliente(dniBuscar));
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("\nERROR: %s%n%n", e.getMessage());
+        }
+
     }
 
+    @Override
     public void anadirCliente() {
         Consola.mostrarCabecera("ALTA CLIENTE");
         Cliente cliente = Consola.leerCliente();
